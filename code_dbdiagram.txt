@@ -1,0 +1,62 @@
+// DataBase the Courses WebServ.com del entregable1
+
+Table roles {
+  id int [pk, increment]
+  name varchar(20) [not null, unique]
+}
+
+Table levels {
+  id int [pk, increment]
+  name varchar(20) [not null, unique]
+}
+
+Table teachers {
+  id int [pk, increment]
+  name varchar(20) [not null]
+  last_name varchar(20) [not null]
+}
+
+Table courses {
+  id int [pk, increment]
+  title varchar(40) [not null, unique]
+  description varchar(130) [not null, unique]
+  level_id int
+  teacher_id int
+}
+ 
+Table users {
+  id int [pk, increment]
+  name varchar(50) [not null]
+  last_name varchar(50) [not null]
+  email varchar(50) [not null, unique]
+  password varchar(20) [not null, unique]
+  course_id int 
+  role_id int
+}
+
+Table categories {
+  id int [pk, increment]
+  name varchar(30) [not null, unique] 
+  course_id int    
+}
+
+Table course_video {
+  id int [pk, increment]
+  title varchar(40) [not null, unique]
+  url varchar(150) [not null, unique]
+  categories_id int
+}
+
+
+Ref: "roles"."id" < "users"."role_id"
+
+Ref: "users"."course_id" < "courses"."id"
+
+Ref: "courses"."teacher_id" < "teachers"."id"
+
+Ref: "levels"."id" < "courses"."level_id"
+
+Ref: "categories"."course_id" < "courses"."id"
+
+Ref: "categories"."id" < "course_video"."categories_id"
+
